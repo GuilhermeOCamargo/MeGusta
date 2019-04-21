@@ -1,4 +1,6 @@
 package br.com.megusta.userservice.model.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -21,6 +23,7 @@ public class Address implements Serializable{
     @Column(length=8, nullable=false, unique = true)
     private String zipCode;
     @OneToOne
+    @JsonIgnore
     private User user;
 
     public Address(Long id, String streetName, String number, String complement, String zipCode) {

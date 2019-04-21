@@ -18,16 +18,10 @@ public class AddressDTO implements Serializable{
     @NotNull(message = "Insira o nome da rua.")
     private String streetName;
     @NotNull(message = "Insira do CEP.")
-    @Pattern(regexp = "\\d{5}-\\d{3}", message = "Cep inválido.")
+    @Pattern(regexp = "\\d{5}\\d{3}", message = "Cep inválido.")
     private String zipCode;
-
-    public AddressDTO(Long id, String number, String complement, String streetName, String zipCode) {
-        this.id = id;
-        this.number = number;
-        this.complement = complement;
-        this.streetName = streetName;
-        this.zipCode = zipCode;
-    }
+    @NotNull(message = "Informe o usuário")
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -69,4 +63,11 @@ public class AddressDTO implements Serializable{
         this.zipCode = zipCode;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }

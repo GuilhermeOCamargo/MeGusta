@@ -1,5 +1,8 @@
 package br.com.megusta.userservice.model.dto;
 
+import br.com.megusta.userservice.validators.groups.OnCreate;
+import br.com.megusta.userservice.validators.groups.OnPasswordChange;
+import br.com.megusta.userservice.validators.groups.OnUpdate;
 import br.com.megusta.userservice.validators.annotations.ConfirmSenhaEqualsValid;
 import br.com.megusta.userservice.validators.annotations.EmailUniqueValid;
 
@@ -12,19 +15,19 @@ import java.io.Serializable;
  * @author Guilherme Camargo
  * */
 @ConfirmSenhaEqualsValid.List({
-        @ConfirmSenhaEqualsValid(senha = "password", confirmSenha = "confirmPassword")
+        @ConfirmSenhaEqualsValid(senha = "password", confirmSenha = "confirmPassword", groups = {OnPasswordChange.class, OnCreate.class})
 })
-@EmailUniqueValid(email = "email", id = "id")
+@EmailUniqueValid(email = "email", id = "id", groups = OnCreate.class)
 public class UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    @NotNull(message = "Insira o nome.")
+    @NotNull(message = "Insira o nome.", groups = {OnCreate.class, OnUpdate.class})
     private String name;
-    @NotNull(message = "Insira o email.")
+    @NotNull(message = "Insira o email.", groups = {OnCreate.class})
     @Email(message = "Insira um email válido.")
     private String email;
-    @NotNull(message = "Insira a senha.")
+    @NotNull(message = "Insira a senha.", groups = {OnCreate.class, OnPasswordChange.class})
     @Size(min = 8, max = 15, message = "A password deve ter entre 8 e 15 caracteres.")
     private String password;
     private String confirmPassword;

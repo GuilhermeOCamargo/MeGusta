@@ -9,7 +9,7 @@ import java.util.Optional;
 /**
  * @author Guilherme Camargo
  * */
-public interface LogradouroRepository extends CrudRepository<Address, Long> {
+public interface AddressRepository extends CrudRepository<Address, Long> {
 
     @Transactional(readOnly = true)
     Optional<Address> findByUser(User user);

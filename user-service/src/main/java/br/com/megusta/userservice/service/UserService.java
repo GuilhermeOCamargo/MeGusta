@@ -23,7 +23,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private LogradouroService logradouroService;
+    private AddressService addressService;
 
     public User authenticate(String email, String password){
         Optional<User> usuario = userRepository.findByEmailAndPassword(email, password);
@@ -39,17 +39,14 @@ public class UserService {
         Optional<User> usuario = userRepository.findByEmail(email);
         return usuario.orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado"));
     }
-
-    public User findByIdAndEmail(Long id, String email){
-        Optional<User> user = userRepository.findByIdAndEmail(id, email);
-        return user.orElseThrow(() -> new ObjectNotFoundException(("Usuário não encontrado.")));
+    public User updateUserAddress(User user){
+        return save(user);
     }
-
     private User save(User user){
         try{
             return userRepository.save(user);
-        }catch (DataIntegrityViolationException e){
-            throw new DataIntegrityException("Email já cadastrado.");
+        }catch (Exception e){
+            throw new DataIntegrityException("Ocorreu um erro ao completar a ação.");
         }
     }
 
@@ -59,14 +56,6 @@ public class UserService {
         save(user);
     }
 
-    public void addLogradouro(AddressDTO addressDTO, Long usuarioId){
-        Address address = logradouroService.findOrPopulate(addressDTO);
-        User user = findById(usuarioId);
-        address.setUser(user);
-        address = logradouroService.save(address);
-        user.setAddress(address);
-        save(user);
-    }
 
     public User saveUser(UserDTO dto){
         return save(fromDto(dto));
