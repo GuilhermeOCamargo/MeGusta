@@ -32,6 +32,17 @@ public class User implements Serializable {
         return Objects.hash(id, name, email, password, address);
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", address=" + address +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }

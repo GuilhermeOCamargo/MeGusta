@@ -25,12 +25,23 @@ public class UserDTO implements Serializable {
     @NotNull(message = "Insira o nome.", groups = {OnCreate.class, OnUpdate.class})
     private String name;
     @NotNull(message = "Insira o email.", groups = {OnCreate.class})
-    @Email(message = "Insira um email válido.")
+    @Email(message = "Insira um email válido.", groups = {OnCreate.class})
     private String email;
     @NotNull(message = "Insira a senha.", groups = {OnCreate.class, OnPasswordChange.class})
     @Size(min = 8, max = 15, message = "A password deve ter entre 8 e 15 caracteres.")
     private String password;
     private String confirmPassword;
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                '}';
+    }
 
     public Long getId() {
         return id;

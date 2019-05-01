@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Guilherme Camargo
  * */
 @Component
-public class RestTemplateBuilder {
+public class RestTemplateCreator {
     RestTemplate restTemplate = new RestTemplate();
 
     @Value("${default.url.service}")

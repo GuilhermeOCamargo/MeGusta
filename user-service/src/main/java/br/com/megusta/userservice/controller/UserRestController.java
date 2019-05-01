@@ -21,7 +21,7 @@ import java.net.URI;
  * @author Guilherme Camargo
  * */
 @RestController
-@RequestMapping
+@RequestMapping("/api")
 @Validated
 public class UserRestController {
 

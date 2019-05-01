@@ -17,7 +17,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findByEmailAndPassword(String email, String password);
     @Transactional(readOnly = true)
     Optional<User> findByEmail(String email);
-    @Transactional
-    Optional<User> findByIdAndEmail(Long id, String email);
 
 }
