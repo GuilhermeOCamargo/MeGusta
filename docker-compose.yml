@@ -1,0 +1,28 @@
+version: '3'
+networks:
+  discovery:
+  proxy:
+services:
+  discovery:
+    image: openjdk:8u212-jre-stretch
+    volumes:
+      - ./docker_environment/discovery/:/app
+    working_dir: /app
+    command: java -jar eureka-service.jar
+    ports:
+      - 8761:8761
+    networks:
+      - discovery
+  proxy:
+    image: openjdk:8u212-jre-stretch
+    volumes:
+      - ./docker_environment/proxy/:/app
+    working_dir: /app
+    command: java -jar zull-service.jar
+    ports:
+      - 8762:8762
+    networks:
+      - proxy
+      - discovery
+    depends_on:
+      - discovery
