@@ -1,16 +1,13 @@
 package br.com.megusta.userservice.service;
 
-import br.com.megusta.userservice.builder.UserBuilder;
+import br.com.megusta.userservice.builder.command.UserBuildCommand;
 import br.com.megusta.userservice.exceptions.AuthenticationFailedException;
 import br.com.megusta.userservice.exceptions.DataIntegrityException;
 import br.com.megusta.userservice.exceptions.ObjectNotFoundException;
-import br.com.megusta.userservice.model.domain.Address;
 import br.com.megusta.userservice.model.domain.User;
-import br.com.megusta.userservice.model.dto.AddressDTO;
 import br.com.megusta.userservice.model.dto.UserDTO;
 import br.com.megusta.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -24,6 +21,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private AddressService addressService;
+    @Autowired
+    private UserBuildCommand userBuildCommand;
 
     public User authenticate(String email, String password){
         Optional<User> usuario = userRepository.findByEmailAndPassword(email, password);
@@ -56,22 +55,8 @@ public class UserService {
         save(user);
     }
 
-
     public User saveUser(UserDTO dto){
-        return save(fromDto(dto));
+        return save(userBuildCommand.execute(dto));
     }
 
-     /** Convert a {@link UserDTO} in a {@link User}
-     * @param dto
-     * @return User
-     * */
-    public User fromDto(UserDTO dto){
-        User user;
-        if(dto.getId() != null){
-            user = new UserBuilder(findById(dto.getId())).updateObject(dto).build();
-        }else{
-            user = new UserBuilder().createFromDto(dto).build();
-        }
-        return user;
-    }
 }
