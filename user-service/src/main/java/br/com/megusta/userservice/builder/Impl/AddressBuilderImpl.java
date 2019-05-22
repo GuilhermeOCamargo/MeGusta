@@ -4,7 +4,6 @@ import br.com.megusta.userservice.builder.BaseBuilder;
 import br.com.megusta.userservice.builder.Builder;
 import br.com.megusta.userservice.model.domain.Address;
 import br.com.megusta.userservice.model.domain.User;
-import br.com.megusta.userservice.model.dto.AddressDTO;
 import org.springframework.stereotype.Component;
 
 /**
@@ -36,21 +35,6 @@ public class AddressBuilderImpl extends BaseBuilder<Address> {
     public AddressBuilderImpl user(User user){
         entity.setUser(user);
         return this;
-    }
-    public AddressBuilderImpl createFromDto(AddressDTO dto){
-        id(dto.getId());
-        populateBasicValues(dto);
-        return this;
-    }
-    public AddressBuilderImpl updateFromDto(AddressDTO dto){
-        populateBasicValues(dto);
-        return this;
-    }
-    private void populateBasicValues(AddressDTO dto){
-        streetName(dto.getStreetName());
-        number(dto.getNumber());
-        complement(dto.getComplement());
-        zipCode(dto.getZipCode());
     }
 
     @Override
