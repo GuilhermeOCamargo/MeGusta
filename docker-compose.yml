@@ -1,7 +1,6 @@
 version: '3'
 networks:
-  discovery:
-  proxy:
+  configuration:
 services:
   discovery:
     image: openjdk:8u212-jre-stretch
@@ -12,17 +11,16 @@ services:
     ports:
       - 8761:8761
     networks:
-      - discovery
+      - configuration
   proxy:
     image: openjdk:8u212-jre-stretch
     volumes:
       - ./docker_environment/proxy/:/app
     working_dir: /app
-    command: java -jar zull-service.jar
+    command: java -jar zuul-service.jar
     ports:
       - 8762:8762
     networks:
-      - proxy
-      - discovery
+      - configuration
     depends_on:
       - discovery
