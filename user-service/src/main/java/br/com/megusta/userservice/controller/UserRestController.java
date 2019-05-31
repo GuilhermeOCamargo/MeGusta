@@ -63,16 +63,23 @@ public class UserRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(value = "/{id}/address")
+    @PostMapping(value = "/{id}/address")
     @ResponseStatus(NO_CONTENT)
     @Validated(OnCreate.class)
     public void addAddress(@PathVariable String id, @Valid @RequestBody AddressDTO addressDTO){
         userService.addAddress(addressDTO, id);
     }
+
     @GetMapping(produces = APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(OK)
     @ResponseBody
     public List<UserDTO> findAll(){
         return  userService.findAll();
+    }
+
+    @DeleteMapping(value = "/{id}/address/{addressId}")
+    @ResponseStatus(NO_CONTENT)
+    public void delete(@PathVariable String id, @PathVariable String addressId){
+        userService.removeAddress(id, addressId);
     }
 }

@@ -74,4 +74,16 @@ public class UserService {
         save(user);
     }
 
+    public void removeAddress(String userId, String addressId){
+        User user = findById(userId);
+        Address address = addressService.findById(addressId);
+        user.getAddresses().forEach((x) -> {
+            if(x.equals(address)){
+                user.getAddresses().remove(x);
+            }
+        });
+        save(user);
+        addressService.delete(addressId);
+    }
+
 }

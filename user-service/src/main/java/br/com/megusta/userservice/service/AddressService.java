@@ -38,4 +38,7 @@ public class AddressService {
         return save(address);
     }
 
+    public void delete(String id){
+        addressRepository.deleteById(id);
+    }
 }

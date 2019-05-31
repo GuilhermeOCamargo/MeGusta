@@ -20,7 +20,7 @@ public class AddressBuildCommand {
     private Address executeCreationBuild(AddressDTO dto){
         addressBuilder.createEntity();
         return addressBuilder.streetName(dto.getStreetName()).number(dto.getNumber())
-                .complement(dto.getComplement()).zipCode(dto.getZipCode()).build();
+                .complement(dto.getComplement()).zipCode(dto.getZipCode()).name(dto.getName()).build();
     }
     private Address executeUpdateBuild(AddressDTO dto){
         addressBuilder.createEntity(addressService.findById(dto.getId()));
