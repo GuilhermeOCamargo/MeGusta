@@ -11,7 +11,9 @@ import java.io.Serializable;
 public class AddressDTO implements Serializable{
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private String id;
+    @NotNull(message = "Insira o nome do endereço.")
+    private String name;
     @NotNull(message = "Insira o número do logradouro.")
     private String number;
     private String complement;
@@ -20,17 +22,6 @@ public class AddressDTO implements Serializable{
     @NotNull(message = "Insira do CEP.")
     @Pattern(regexp = "\\d{5}\\d{3}", message = "Cep inválido.")
     private String zipCode;
-    @NotNull(message = "Informe o usuário")
-    private Long userId;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getNumber() {
         return number;
     }
@@ -63,11 +54,19 @@ public class AddressDTO implements Serializable{
         this.zipCode = zipCode;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getName() {
+        return name;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

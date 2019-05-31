@@ -53,12 +53,12 @@ public class UserTestRestController {
     @Before
     public void setUp(){
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        user = createDefault().withId(1L).withPassword("12345678").build();
+        user = createDefault().withId("1").withPassword("12345678").build();
     }
 
     @Test
     public void givenId_WhenFindById_Return200AndUser()throws Exception{
-        given(userRepository.findById(anyLong())).willReturn(Optional.of(user));
+        given(userRepository.findById(anyString())).willReturn(Optional.of(user));
         mockMvc.perform(get("/api/1")
                 .contentType(APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(status().isOk())
@@ -66,7 +66,7 @@ public class UserTestRestController {
     }
     @Test
     public void givenUser_WhenInsert_Return400AndErrors() throws Exception{
-        user.setId(1L);
+        user.setId("1");
         given(userRepository.save(ArgumentMatchers.any(User.class)))
                 .willReturn(user);
         mockMvc.perform(post("/api")
@@ -89,7 +89,7 @@ public class UserTestRestController {
     @Test
     public void givenPassword_WhenUpdatePassword_Return204() throws Exception{
         UserDTO dto = createDtoDefault().build();
-        given(userRepository.findById(anyLong())).willReturn(Optional.of(user));
+        given(userRepository.findById(anyString())).willReturn(Optional.of(user));
         given(userRepository.save(ArgumentMatchers.any(User.class))).willReturn(user);
         mockMvc.perform(put("/api/password/"+anyLong())
                 .contentType(APPLICATION_JSON_UTF8_VALUE)

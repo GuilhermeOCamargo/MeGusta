@@ -32,7 +32,7 @@ public class UserBuilder {
         builder.user.setPassword(password);
         return builder;
     }
-    public static UserBuilder withId(Long id){
+    public static UserBuilder withId(String id){
         builder.user.setId(id);
         return builder;
     }

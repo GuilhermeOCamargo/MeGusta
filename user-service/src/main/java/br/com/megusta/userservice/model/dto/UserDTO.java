@@ -1,10 +1,12 @@
 package br.com.megusta.userservice.model.dto;
 
+import br.com.megusta.userservice.model.domain.User;
 import br.com.megusta.userservice.validators.groups.OnCreate;
 import br.com.megusta.userservice.validators.groups.OnPasswordChange;
 import br.com.megusta.userservice.validators.groups.OnUpdate;
 import br.com.megusta.userservice.validators.annotations.ConfirmSenhaEqualsValid;
 import br.com.megusta.userservice.validators.annotations.EmailUniqueValid;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -21,7 +23,7 @@ import java.io.Serializable;
 public class UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private String id;
     @NotNull(message = "Insira o nome.", groups = {OnCreate.class, OnUpdate.class})
     private String name;
     @NotNull(message = "Insira o email.", groups = {OnCreate.class})
@@ -32,22 +34,19 @@ public class UserDTO implements Serializable {
     private String password;
     private String confirmPassword;
 
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
-                '}';
+    public UserDTO() {
+    }
+    public UserDTO(User entity) {
+        this.id = entity.getId();
+        this.name = entity.getName();
+        this.email = entity.getEmail();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -67,6 +66,7 @@ public class UserDTO implements Serializable {
         this.email = email;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -75,6 +75,7 @@ public class UserDTO implements Serializable {
         this.password = password;
     }
 
+    @JsonIgnore
     public String getConfirmPassword() {
         return confirmPassword;
     }

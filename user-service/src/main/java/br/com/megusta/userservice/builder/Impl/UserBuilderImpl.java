@@ -2,7 +2,6 @@ package br.com.megusta.userservice.builder.Impl;
 
 import br.com.megusta.userservice.builder.BaseBuilder;
 import br.com.megusta.userservice.builder.Builder;
-import br.com.megusta.userservice.model.domain.Address;
 import br.com.megusta.userservice.model.domain.User;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserBuilderImpl extends BaseBuilder<User> {
 
-    public UserBuilderImpl id(Long id){
+    public UserBuilderImpl id(String id){
         entity.setId(id);
         return this;
     }
@@ -26,10 +25,6 @@ public class UserBuilderImpl extends BaseBuilder<User> {
     }
     public UserBuilderImpl password(String password){
         entity.setPassword(password);
-        return this;
-    }
-    public UserBuilderImpl address(Address address){
-        entity.setAddress(address);
         return this;
     }
     @Override

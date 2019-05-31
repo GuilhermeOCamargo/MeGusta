@@ -1,64 +1,36 @@
 package br.com.megusta.userservice.model.domain;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author Guilherme Camargo
  * */
-@Entity
+@Document(collection = "address")
 public class Address implements Serializable{
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(length = 25, nullable = false, unique = true)
-    private String streetName;
-    @Column(length = 10, nullable = false)
-    private String number;
-    @Column(length = 25, nullable = true)
-    private String complement;;
-    @Column(length=8, nullable=false, unique = true)
-    private String zipCode;
-    @OneToOne
-    @JsonIgnore
-    private User user;
 
-    public Address(Long id, String streetName, String number, String complement, String zipCode) {
-        this.id = id;
+    @Id
+    private String id;
+    private String name;
+    private String streetName;
+    private String number;
+    private String complement;
+    private String zipCode;
+
+    public Address(String streetName, String number, String complement, String zipCode, String name) {
         this.streetName = streetName;
         this.number = number;
         this.complement = complement;
         this.zipCode = zipCode;
+        this.name = name;
     }
     public Address() {}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Address that = (Address) o;
-        return id.equals(that.id) &&
-                streetName.equals(that.streetName) &&
-                number.equals(that.number) &&
-                Objects.equals(complement, that.complement) &&
-                zipCode.equals(that.zipCode);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, streetName, number, complement, zipCode);
-    }
-
     //Getters And Setters
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
     public String getNumber() {
         return number;
     }
@@ -75,20 +47,35 @@ public class Address implements Serializable{
     public void setStreetName(String streetName) {
         this.streetName = streetName;
     }
-
     public String getZipCode() {
         return zipCode;
     }
-
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
-
-    public User getUser() {
-        return user;
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(id, address.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

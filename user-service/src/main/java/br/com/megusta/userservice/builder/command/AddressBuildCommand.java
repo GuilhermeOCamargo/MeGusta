@@ -25,7 +25,7 @@ public class AddressBuildCommand {
     private Address executeUpdateBuild(AddressDTO dto){
         addressBuilder.createEntity(addressService.findById(dto.getId()));
         return addressBuilder.streetName(dto.getStreetName()).number(dto.getNumber())
-                .complement(dto.getComplement()).zipCode(dto.getZipCode()).build();
+                .complement(dto.getComplement()).zipCode(dto.getZipCode()).name(dto.getName()).build();
     }
     public Address execute(AddressDTO dto){
         if(dto.getId() == null)

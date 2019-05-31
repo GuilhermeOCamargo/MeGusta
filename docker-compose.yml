@@ -1,6 +1,7 @@
 version: '3'
 networks:
   configuration:
+  userNet:
 services:
   discovery:
     image: openjdk:8u212-jre-stretch
@@ -22,5 +23,22 @@ services:
       - 8762:8762
     networks:
       - configuration
+      - userNet
     depends_on:
       - discovery
+  user-db:
+    image: mongo
+    networks:
+      - userNet
+  user-service:
+    image: openjdk:8u212-jre-stretch
+    volumes:
+      - ./docker_environment/user_service/:/app
+    working_dir: /app
+    command: java -jar user-service.jar
+    networks:
+      - userNet
+      - configuration
+    depends_on:
+      - user-db
+      - proxy
