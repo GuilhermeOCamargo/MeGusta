@@ -41,9 +41,9 @@ public class UserService {
         return usuario.orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado"));
     }
     public List<UserDTO> findAll(){
-        List<User> users = userRepository.findAll();
-        List<UserDTO> dtos = users.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
-        return dtos;
+        return userRepository.findAll().stream()
+                .map(user -> new UserDTO(user))
+                .collect(Collectors.toList());
     }
 
     private User save(User user){
@@ -56,12 +56,12 @@ public class UserService {
 
     public void updatePassword(UserDTO dto){
         User user = findById(dto.getId());
-//        user.setPassword(dto.getPassword());
+        user.updatePassword(dto.getPassword());
         save(user);
     }
 
     public User saveUser(UserDTO dto){
-        return new User();
+        return save(convertDtoToEntity(dto));
     }
 
     public void addAddress(AddressDTO addressDTO, String userId){
@@ -81,6 +81,15 @@ public class UserService {
         });
         save(user);
         addressService.delete(addressId);
+    }
+
+    private User convertDtoToEntity(UserDTO dto){
+        return User.builder()
+                .withName(dto.getName())
+                .withPassword(dto.getPassword())
+                .withEmail(dto.getEmail())
+                .withId(dto.getId())
+                .build();
     }
 
 }

@@ -24,13 +24,20 @@ public class Instantiation implements CommandLineRunner {
         addressRepository.deleteAll();
         userRepository.deleteAll();
 
-        User user = new User.UserBuilder().createUser();
-        user.setName("Guilherme");
-        user.setEmail("guilherme@megusta.com");
-        user.setPassword("123456789");
+        User user = User.builder()
+                .withName("Guilherme")
+                .withEmail("Guilherme@megusta.com")
+                .withPassword("123456789")
+                .build();
         user = userRepository.save(user);
 
-        Address address = new Address.AddressBuilder().setStreetName("rua 1").setNumber("123").setComplement(null).setZipCode("00000000").setName("casa").createAddress();
+        Address address = Address.builder()
+                .withStreetName("rua 1")
+                .withNumber("123")
+                .withComplement(null)
+                .withZipCode("00000000")
+                .withName("casa")
+                .build();
         address = addressRepository.save(address);
 
         user.getAddresses().add(address);

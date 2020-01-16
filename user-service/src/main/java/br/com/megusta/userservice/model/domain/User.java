@@ -72,11 +72,15 @@ public class User implements Serializable {
         return addresses;
     }
 
-    public UserBuilder builder(){
+    public void updatePassword(String password){
+        this.password = password;
+    }
+
+    public static UserBuilder builder(){
         return new UserBuilder();
     }
 
-    private static class UserBuilder{
+    public static class UserBuilder{
 
         private String id;
         private String name;
@@ -109,7 +113,7 @@ public class User implements Serializable {
             return this;
         }
 
-        public User createUser() {
+        public User build() {
             return new User(id, name, email, password, addresses);
         }
     }

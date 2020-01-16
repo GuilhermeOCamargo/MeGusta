@@ -31,10 +31,20 @@ public class AddressService {
     }
 
     public Address saveAddress(AddressDTO dto){
-        return new Address();
+        return save(convertDtoToEntity(dto));
     }
 
     public void delete(String id){
         addressRepository.deleteById(id);
+    }
+
+    private Address convertDtoToEntity(AddressDTO dto){
+        return Address.builder()
+                .withName(dto.getName())
+                .withNumber(dto.getNumber())
+                .withStreetName(dto.getStreetName())
+                .withComplement(dto.getComplement())
+                .withZipCode(dto.getZipCode())
+                .build();
     }
 }

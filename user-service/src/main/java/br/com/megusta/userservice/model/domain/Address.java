@@ -61,10 +61,10 @@ public class Address implements Serializable{
         return Objects.hash(id);
     }
 
-    public AddressBuilder builder(){
+    public static AddressBuilder builder(){
         return new AddressBuilder();
     }
-    private static class AddressBuilder{
+    public static class AddressBuilder{
 
         private String streetName;
         private String number;
@@ -97,7 +97,7 @@ public class Address implements Serializable{
             return this;
         }
 
-        public Address createAddress() {
+        public Address build() {
             return new Address(streetName, number, complement, zipCode, name);
         }
     }
