@@ -21,49 +21,31 @@ public class Address implements Serializable{
     private String complement;
     private String zipCode;
 
-    public Address(String streetName, String number, String complement, String zipCode, String name) {
+    private Address(String streetName, String number, String complement, String zipCode, String name) {
         this.streetName = streetName;
         this.number = number;
         this.complement = complement;
         this.zipCode = zipCode;
         this.name = name;
     }
+    @Deprecated
     public Address() {}
 
-    //Getters And Setters
     public String getNumber() {
         return number;
     }
-    public void setNumber(String number) {
-        this.number = number;
-    }
     public String getComplement() { return complement;}
-    public void setComplement(String complement) {
-        this.complement = complement;
-    }
     public String getStreetName() {
         return streetName;
-    }
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
     }
     public String getZipCode() {
         return zipCode;
     }
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
     public String getName() {
         return name;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
     public String getId() {
         return id;
-    }
-    public void setId(String id) {
-        this.id = id;
     }
 
     @Override
@@ -77,5 +59,46 @@ public class Address implements Serializable{
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public AddressBuilder builder(){
+        return new AddressBuilder();
+    }
+    private static class AddressBuilder{
+
+        private String streetName;
+        private String number;
+        private String complement;
+        private String zipCode;
+        private String name;
+
+        public AddressBuilder withStreetName(String streetName) {
+            this.streetName = streetName;
+            return this;
+        }
+
+        public AddressBuilder withNumber(String number) {
+            this.number = number;
+            return this;
+        }
+
+        public AddressBuilder withComplement(String complement) {
+            this.complement = complement;
+            return this;
+        }
+
+        public AddressBuilder withZipCode(String zipCode) {
+            this.zipCode = zipCode;
+            return this;
+        }
+
+        public AddressBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Address createAddress() {
+            return new Address(streetName, number, complement, zipCode, name);
+        }
     }
 }

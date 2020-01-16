@@ -16,7 +16,7 @@ public class UserBuilder {
 
     public static UserBuilder createDefault(){
         builder = new UserBuilder();
-        builder.user = new User();
+        builder.user = new User.UserBuilder().createUser();
         return withName("Guilherme Camargo")
         .withEmail("guilherme.ocamargo@megusta.com").withPassword("1234");
     }

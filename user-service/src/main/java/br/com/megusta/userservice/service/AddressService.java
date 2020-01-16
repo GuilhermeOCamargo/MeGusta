@@ -1,6 +1,5 @@
 package br.com.megusta.userservice.service;
 
-import br.com.megusta.userservice.builder.command.AddressBuildCommand;
 import br.com.megusta.userservice.exceptions.DataIntegrityException;
 import br.com.megusta.userservice.exceptions.ObjectNotFoundException;
 import br.com.megusta.userservice.model.domain.Address;
@@ -17,8 +16,6 @@ public class AddressService {
 
     @Autowired
     private AddressRepository addressRepository;
-    @Autowired
-    private AddressBuildCommand addressBuildCommand;
 
     public Address findById(String id){
         return addressRepository.findById(id)
@@ -34,8 +31,7 @@ public class AddressService {
     }
 
     public Address saveAddress(AddressDTO dto){
-        Address address = addressBuildCommand.execute(dto);
-        return save(address);
+        return new Address();
     }
 
     public void delete(String id){

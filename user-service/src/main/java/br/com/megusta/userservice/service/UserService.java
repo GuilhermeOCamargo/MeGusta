@@ -1,6 +1,5 @@
 package br.com.megusta.userservice.service;
 
-import br.com.megusta.userservice.builder.command.UserBuildCommand;
 import br.com.megusta.userservice.exceptions.AuthenticationFailedException;
 import br.com.megusta.userservice.exceptions.DataIntegrityException;
 import br.com.megusta.userservice.exceptions.ObjectNotFoundException;
@@ -23,8 +22,6 @@ import java.util.stream.Collectors;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private UserBuildCommand userBuildCommand;
     @Autowired
     private AddressService addressService;
 
@@ -59,12 +56,12 @@ public class UserService {
 
     public void updatePassword(UserDTO dto){
         User user = findById(dto.getId());
-        user.setPassword(dto.getPassword());
+//        user.setPassword(dto.getPassword());
         save(user);
     }
 
     public User saveUser(UserDTO dto){
-        return save(userBuildCommand.execute(dto));
+        return new User();
     }
 
     public void addAddress(AddressDTO addressDTO, String userId){
