@@ -1,16 +1,15 @@
 package br.com.megusta.userservice.exceptions;
+
+import org.springframework.http.HttpStatus;
+
 /**
  * @author Guilherme Camargo
  * */
-public class ObjectNotFoundException extends RuntimeException {
+public class ObjectNotFoundException extends BaseException {
 
     private static final long serialVersionUID = 1L;
 
     public ObjectNotFoundException(String message) {
-        super(message);
-    }
-
-    public ObjectNotFoundException(String message, Throwable cause) {
-        super(message, cause);
+        super(message, HttpStatus.NOT_FOUND);
     }
 }

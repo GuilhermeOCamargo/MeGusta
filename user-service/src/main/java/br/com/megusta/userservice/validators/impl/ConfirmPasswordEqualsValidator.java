@@ -1,7 +1,7 @@
 package br.com.megusta.userservice.validators.impl;
 
 
-import br.com.megusta.userservice.validators.annotations.ConfirmSenhaEqualsValid;
+import br.com.megusta.userservice.validators.annotations.ConfirmPasswordEqualsValid;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.validation.ConstraintValidator;
@@ -9,12 +9,12 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * @author Guilherme Camargo
  * */
-public class ConfirmSenhaEqualsValidator implements ConstraintValidator<ConfirmSenhaEqualsValid, Object> {
+public class ConfirmPasswordEqualsValidator implements ConstraintValidator<ConfirmPasswordEqualsValid, Object> {
     private String senha;
     private String confirmSenha;
     private String message;
     @Override
-    public void initialize(ConfirmSenhaEqualsValid constraintAnnotation) {
+    public void initialize(ConfirmPasswordEqualsValid constraintAnnotation) {
         this.senha = constraintAnnotation.senha();
         this.confirmSenha = constraintAnnotation.confirmSenha();
         this.message = constraintAnnotation.message();

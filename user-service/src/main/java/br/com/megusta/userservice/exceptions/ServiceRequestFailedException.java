@@ -1,15 +1,12 @@
 package br.com.megusta.userservice.exceptions;
+
+import org.springframework.http.HttpStatus;
+
 /**
  * @author Guilherme Camargo
  * */
-public class ServiceRequestFailedException extends RuntimeException{
+public class ServiceRequestFailedException extends BaseException{
     public ServiceRequestFailedException(String message) {
-        super(message);
-    }
-    public ServiceRequestFailedException() {
-        super();
-    }
-    public ServiceRequestFailedException(String message, Throwable cause) {
-        super(message, cause);
+        super(message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

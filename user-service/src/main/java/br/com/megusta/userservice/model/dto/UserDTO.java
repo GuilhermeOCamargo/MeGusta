@@ -4,7 +4,7 @@ import br.com.megusta.userservice.model.domain.User;
 import br.com.megusta.userservice.validators.groups.OnCreate;
 import br.com.megusta.userservice.validators.groups.OnPasswordChange;
 import br.com.megusta.userservice.validators.groups.OnUpdate;
-import br.com.megusta.userservice.validators.annotations.ConfirmSenhaEqualsValid;
+import br.com.megusta.userservice.validators.annotations.ConfirmPasswordEqualsValid;
 import br.com.megusta.userservice.validators.annotations.EmailUniqueValid;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -16,8 +16,8 @@ import java.io.Serializable;
 /**
  * @author Guilherme Camargo
  * */
-@ConfirmSenhaEqualsValid.List({
-        @ConfirmSenhaEqualsValid(senha = "password", confirmSenha = "confirmPassword", groups = {OnPasswordChange.class, OnCreate.class})
+@ConfirmPasswordEqualsValid.List({
+        @ConfirmPasswordEqualsValid(senha = "password", confirmSenha = "confirmPassword", groups = {OnPasswordChange.class, OnCreate.class})
 })
 @EmailUniqueValid(email = "email", id = "id", groups = OnCreate.class)
 public class UserDTO implements Serializable {

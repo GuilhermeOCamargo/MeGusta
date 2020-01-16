@@ -1,16 +1,13 @@
 package br.com.megusta.userservice.exceptions;
+
+import org.springframework.http.HttpStatus;
+
 /**
  * @author Guilherme Camargo
  * */
-public class DataIntegrityException extends RuntimeException {
-
-    private static final long serialVersionUID = 1L;
+public class DataIntegrityException extends BaseException {
 
     public DataIntegrityException(String message) {
-        super(message);
-    }
-
-    public DataIntegrityException(String message, Throwable cause) {
-        super(message, cause);
+        super(message, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }

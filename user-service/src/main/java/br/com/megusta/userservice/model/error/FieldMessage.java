@@ -1,4 +1,4 @@
-package br.com.megusta.userservice.controller.exception;
+package br.com.megusta.userservice.model.error;
 
 import java.io.Serializable;
 /**

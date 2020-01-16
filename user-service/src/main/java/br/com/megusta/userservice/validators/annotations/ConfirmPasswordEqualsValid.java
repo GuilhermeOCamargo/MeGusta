@@ -1,6 +1,6 @@
 package br.com.megusta.userservice.validators.annotations;
 
-import br.com.megusta.userservice.validators.impl.ConfirmSenhaEqualsValidator;
+import br.com.megusta.userservice.validators.impl.ConfirmPasswordEqualsValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -13,8 +13,8 @@ import java.lang.annotation.Target;
  * */
 @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = ConfirmSenhaEqualsValidator.class)
-public @interface ConfirmSenhaEqualsValid {
+@Constraint(validatedBy = ConfirmPasswordEqualsValidator.class)
+public @interface ConfirmPasswordEqualsValid {
     String message()default "O campo nao corresponde com a senha informada.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default{};
@@ -24,6 +24,6 @@ public @interface ConfirmSenhaEqualsValid {
     @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
     @Retention(RetentionPolicy.RUNTIME)
     @interface List{
-        ConfirmSenhaEqualsValid[] value();
+        ConfirmPasswordEqualsValid[] value();
     }
 }
