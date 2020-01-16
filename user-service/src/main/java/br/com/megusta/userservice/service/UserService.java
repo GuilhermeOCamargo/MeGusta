@@ -9,6 +9,7 @@ import br.com.megusta.userservice.model.dto.AddressDTO;
 import br.com.megusta.userservice.model.dto.UserDTO;
 import br.com.megusta.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private AddressService addressService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     public User authenticate(String email, String password){
@@ -56,7 +59,7 @@ public class UserService {
 
     public void updatePassword(UserDTO dto){
         User user = findById(dto.getId());
-        user.updatePassword(dto.getPassword());
+        user.updatePassword(passwordEncoder.encode(dto.getPassword()));
         save(user);
     }
 
@@ -73,10 +76,10 @@ public class UserService {
 
     public void removeAddress(String userId, String addressId){
         User user = findById(userId);
-        Address address = addressService.findById(addressId);
-        user.getAddresses().forEach((x) -> {
-            if(x.equals(address)){
-                user.getAddresses().remove(x);
+        Address addressToRemove = addressService.findById(addressId);
+        user.getAddresses().forEach((address) -> {
+            if(address.equals(addressToRemove)){
+                user.getAddresses().remove(address);
             }
         });
         save(user);
@@ -86,7 +89,7 @@ public class UserService {
     private User convertDtoToEntity(UserDTO dto){
         return User.builder()
                 .withName(dto.getName())
-                .withPassword(dto.getPassword())
+                .withPassword(passwordEncoder.encode(dto.getPassword()))
                 .withEmail(dto.getEmail())
                 .withId(dto.getId())
                 .build();
